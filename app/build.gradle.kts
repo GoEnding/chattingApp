@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
-
 }
 
 android {
@@ -10,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.kks.chattingapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -39,12 +38,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
+    // Firebase dependencies
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
 
-    implementation ("com.google.firebase:firebase-firestore-ktx")
-    implementation ("com.google.firebase:firebase-storage-ktx")
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    // Glide and other dependencies
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 }

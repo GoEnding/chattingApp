@@ -1,55 +1,84 @@
 package com.kks.chattingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.kks.chattingapp.utility.FirebaseID;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private FirebaseFirestore db;
+
+    EditText editNickname, editPassword;
+    Button btnLogin;
+    TextView txtRegister;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Firestore 초기화
-        db = FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
-        // 데이터 저장 예제
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
+        editNickname = findViewById(R.id.editNickname);
+        editPassword = findViewById(R.id.editPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        txtRegister = findViewById(R.id.txtRegister);
 
-        db.collection("users").add(user)
-                .addOnSuccessListener(documentReference -> Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId()))
-                .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+        txtRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
 
-        // 데이터 읽기 예제
-        db.collection("users").document("user1").get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                Log.d(TAG, "No such document");
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nickname = editNickname.getText().toString().trim();
+                String password = editPassword.getText().toString().trim();
+
+                if (!nickname.isEmpty() && !password.isEmpty()) {
+                    firestore.collection(FirebaseID.user)
+                            .whereEqualTo(FirebaseID.nickname, nickname)
+                            .whereEqualTo(FirebaseID.password, password)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                            // 로그인 성공 후 채팅 화면으로 이동
+                                            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                            return;
+                                        }
+                                    } else {
+                                        Toast.makeText(MainActivity.this, "로그인 실패: 사용자 데이터 없음", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else {
+                    Toast.makeText(MainActivity.this, "모든 필드를 채워주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

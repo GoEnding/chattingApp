@@ -24,23 +24,12 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="35dp"
             android:fontFamily="@font/katuri"
             android:gravity="center"
-            android:text="로그인 해주세요"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="40dp"
-            android:fontFamily="@font/katuri"
-            android:gravity="center"
-            android:text="Please log in"
-            android:textSize="20sp" />
+            android:text="Welcome to Chatting!"
+            android:textSize="32dp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -48,18 +37,39 @@
             android:layout_height="100dp"
             app:srcCompat="@drawable/chatting" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/katuri"
+            android:gravity="center"
+            android:text="회원가입 해주세요"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/katuri"
+            android:gravity="center"
+            android:text="Please sign up"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/editNickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="38dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:fontFamily="@font/katuri"
             android:hint="Nickname"
-            android:inputType="textEmailAddress"
+            android:inputType="text|textPersonName"
             android:textSize="20sp" />
 
         <EditText
@@ -68,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="45dp"
             android:ems="10"
             android:fontFamily="@font/katuri"
             android:hint="Password"
@@ -76,7 +86,7 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -85,18 +95,18 @@
             android:background="@drawable/btn_round"
             android:backgroundTint="#070707"
             android:fontFamily="@font/katuri"
-            android:text="로그인"
+            android:text="회원가입"
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/txtRegister"
+            android:id="@+id/txtLogin"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:fontFamily="@font/katuri"
             android:gravity="center"
-            android:text="회원가입"
+            android:text="로그인"
             android:textSize="20sp" />
 
     </LinearLayout>
