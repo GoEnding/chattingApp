@@ -1,42 +1,33 @@
-<!-- activity_chat.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity">
-
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChat"
+        android:id="@+id/recyclerView"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@id/layoutInput"
-        android:padding="8dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
+        android:layout_weight="1"/>
 
     <LinearLayout
-        android:id="@+id/layoutInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:padding="8dp">
-
+        android:weightSum="1">
         <EditText
-            android:id="@+id/etMessage"
+            android:id="@+id/editChat"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Type a message"
-            android:textSize="25sp" />
-
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <Button
             android:id="@+id/btnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:textSize="20sp" />
+            android:text="SEND"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"/>
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
