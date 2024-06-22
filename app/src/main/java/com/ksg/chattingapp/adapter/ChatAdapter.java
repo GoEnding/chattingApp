@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.ksg.chattingapp.R;
 import com.ksg.chattingapp.model.ChatMessage;
 
@@ -46,6 +47,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.txtTime.setText(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(chatMessage.getTimestamp().toDate()));
         holder.txtName.setText(chatMessage.getNickname());
 
+        Glide.with(holder.imgMessage.getContext()).load(chatMessage.getImageUrl()).into(holder.imgMessage);
+
         // 이미지 관련 코드는 제거
     }
 
@@ -66,16 +69,23 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public static class ChatViewHolder extends RecyclerView.ViewHolder {
         TextView txtMessage, txtTime, txtName;
 
+        ImageView imgMessage;
+
+
+
         public ChatViewHolder(@NonNull View itemView, int viewType) {
             super(itemView);
             if (viewType == 0) {
                 txtMessage = itemView.findViewById(R.id.txtMyMessage);
                 txtTime = itemView.findViewById(R.id.txtMyTime);
                 txtName = itemView.findViewById(R.id.txtMyName);
+                imgMessage = itemView.findViewById(R.id.imgMessage);
+
             } else {
                 txtMessage = itemView.findViewById(R.id.txtOtherMessage);
                 txtTime = itemView.findViewById(R.id.txtOtherTime);
                 txtName = itemView.findViewById(R.id.txtOtherName);
+                imgMessage = itemView.findViewById(R.id.imgMessage);
             }
         }
     }
