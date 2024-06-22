@@ -1,21 +1,22 @@
 {
   "project_info": {
-    "project_number": "384889371035",
-    "project_id": "chatappproject-6485a",
-    "storage_bucket": "chatappproject-6485a.appspot.com"
+    "project_number": "481211390641",
+    "firebase_url": "https://chattingapp-3c6aa-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "chattingapp-3c6aa",
+    "storage_bucket": "chattingapp-3c6aa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:384889371035:android:3e2c1756a9a45d9daa093e",
+        "mobilesdk_app_id": "1:481211390641:android:86c4f380740efbc460a090",
         "android_client_info": {
-          "package_name": "com.kks.chattingapp"
+          "package_name": "com.ksg.chattingapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCWnF7xzf4yPQlXTwyma5EfbpqkEeqV8yQ"
+          "current_key": "AIzaSyAg_a4LryDBhFqitKSAUfCGXl_en8RJL4E"
         }
       ],
       "services": {

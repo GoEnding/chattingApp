@@ -25,41 +25,43 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="55dp"
             android:layout_marginBottom="15dp"
-            android:fontFamily="@font/katuri"
+            android:fontFamily="@font/font"
             android:gravity="center"
             android:text="회원가입 해주세요"
-            android:textSize="20dp" />
+            android:textSize="28dp" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="40dp"
-            android:fontFamily="@font/katuri"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/font"
             android:gravity="center"
             android:text="Please sign up"
             android:textSize="20sp" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileImage"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/chatting" />
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/user3"
+            app:civ_border_overlay="true" />
 
         <EditText
             android:id="@+id/editNickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:fontFamily="@font/katuri"
+            android:fontFamily="@font/font"
             android:hint="Nickname"
             android:inputType="textEmailAddress"
             android:textSize="20sp" />
@@ -72,7 +74,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="30dp"
             android:ems="10"
-            android:fontFamily="@font/katuri"
+            android:fontFamily="@font/font"
             android:hint="Password"
             android:inputType="textPassword"
             android:textSize="20sp" />
@@ -86,17 +88,17 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/btn_round"
             android:backgroundTint="#070707"
-            android:fontFamily="@font/katuri"
+            android:fontFamily="@font/font"
             android:text="회원가입"
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/txtLogin"
+            android:id="@+id/txtLogout"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:fontFamily="@font/katuri"
+            android:fontFamily="@font/font"
             android:gravity="center"
             android:text="로그인"
             android:textSize="20sp" />

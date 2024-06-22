@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:gravity="left">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage2"
@@ -14,7 +15,7 @@
         app:civ_border_width="2dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -23,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/profileImage2"
             android:text="이름"
             android:textColor="@color/black" />
 
@@ -31,21 +31,17 @@
             android:id="@+id/txtOtherMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtSenderName"
-            android:layout_alignLeft="@+id/txtSenderName"
-            android:background="@drawable/bg_mymsgbox"
             android:maxWidth="250dp"
             android:padding="12dp"
             android:text="메시지"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:background="@drawable/chat" />
 
         <TextView
             android:id="@+id/txtOtherTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/txtOtherMessage"
             android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/txtOtherMessage"
             android:text="시간"
             android:textSize="12sp" />
 
