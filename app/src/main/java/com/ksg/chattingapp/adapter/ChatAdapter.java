@@ -47,7 +47,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         holder.txtTime.setText(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(chatMessage.getTimestamp().toDate()));
         holder.txtName.setText(chatMessage.getNickname());
 
-        Glide.with(holder.imgMessage.getContext()).load(chatMessage.getImageUrl()).into(holder.imgMessage);
+
+        if (chatMessage.getMessage() != null) {
+
+            holder.txtMessage.setText(chatMessage.getMessage());
+
+        } else if (chatMessage.getImageUrl() != null) {
+
+            Glide.with(holder.imgMessage.getContext()).load(chatMessage.getImageUrl()).into(holder.imgMessage);
+
+        } else {
+
+
+        }
 
         // 이미지 관련 코드는 제거
     }
