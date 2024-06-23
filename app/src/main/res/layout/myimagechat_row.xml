@@ -16,6 +16,7 @@
             android:id="@+id/txtMyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="발신자 이름"
             android:textColor="@color/black" />
 
@@ -24,9 +25,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:ellipsize="middle"
+            android:gravity="right"
             android:text="메시지 내용"
             android:textColor="@color/black"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/imgMessage"

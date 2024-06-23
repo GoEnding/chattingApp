@@ -1,5 +1,7 @@
 package com.ksg.chattingapp.adapter;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,8 @@ import com.ksg.chattingapp.model.ChatMessage;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -66,6 +70,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     static class MyChatViewHolder extends RecyclerView.ViewHolder {
         TextView txtMessage, txtTime, txtName;
         ImageView imgMessage;
+        CircleImageView profileImage; // 프로필 이미지 뷰 추가
 
         public MyChatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +78,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             txtTime = itemView.findViewById(R.id.txtMyTime);
             txtName = itemView.findViewById(R.id.txtMyName);
             imgMessage = itemView.findViewById(R.id.imgMessage);
+            profileImage = itemView.findViewById(R.id.profileImage); // 프로필 이미지 뷰 초기화
         }
 
         public void bind(ChatMessage chatMessage) {
@@ -94,12 +100,27 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 txtMessage.setVisibility(View.GONE);
                 imgMessage.setVisibility(View.GONE);
             }
+
+            // 프로필 이미지 로드
+            String profileImageUrl = chatMessage.getProfileImageUrl();
+            Log.d("ChatAdapter", "Loading profile image: " + profileImageUrl); // 로그 추가
+
+            if (!TextUtils.isEmpty(profileImageUrl)) {
+                Glide.with(profileImage.getContext())
+                        .load(profileImageUrl)
+                        .placeholder(R.drawable.default_profile_image)
+                        .error(R.drawable.default_profile_image)
+                        .into(profileImage);
+            } else {
+                profileImage.setImageResource(R.drawable.default_profile_image);
+            }
         }
     }
 
     static class OtherChatViewHolder extends RecyclerView.ViewHolder {
         TextView txtMessage, txtTime, txtName;
         ImageView imgMessage;
+        CircleImageView profileImage; // 프로필 이미지 뷰 추가
 
         public OtherChatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,6 +128,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             txtTime = itemView.findViewById(R.id.txtOtherTime);
             txtName = itemView.findViewById(R.id.txtOtherName);
             imgMessage = itemView.findViewById(R.id.imgMessageOther);
+            profileImage = itemView.findViewById(R.id.profileImage); // 프로필 이미지 뷰 초기화
         }
 
         public void bind(ChatMessage chatMessage) {
@@ -127,6 +149,20 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else {
                 txtMessage.setVisibility(View.GONE);
                 imgMessage.setVisibility(View.GONE);
+            }
+
+            // 프로필 이미지 로드
+            String profileImageUrl = chatMessage.getProfileImageUrl();
+            Log.d("ChatAdapter", "Loading profile image: " + profileImageUrl); // 로그 추가
+
+            if (!TextUtils.isEmpty(profileImageUrl)) {
+                Glide.with(profileImage.getContext())
+                        .load(profileImageUrl)
+                        .placeholder(R.drawable.default_profile_image)
+                        .error(R.drawable.default_profile_image)
+                        .into(profileImage);
+            } else {
+                profileImage.setImageResource(R.drawable.default_profile_image);
             }
         }
     }

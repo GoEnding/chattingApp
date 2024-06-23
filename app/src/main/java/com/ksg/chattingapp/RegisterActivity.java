@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "RegisterActivity";
     private static final int PICK_IMAGE_REQUEST = 1;
-    private static final String DEFAULT_IMAGE_URL = "https://example.com/default_profile_image.jpg"; // 기본 이미지 URL (Firebase Storage에 업로드된 기본 이미지 URL)
+    private static final String DEFAULT_IMAGE_URL = "https://example.com/default_profile_image.jpg"; // 기본 이미지 URL
 
     EditText editPassword, editNickname;
     Button btnRegister;
@@ -72,12 +72,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
-            }
-        });
+//        profileImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openFileChooser();
+//            }
+//        });
 
         btnRegister.setOnClickListener(this);
     }
@@ -140,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void uploadImageAndRegisterUser(final String nickname, final String password) {
-        final StorageReference storageReference = firebaseStorage.getReference("profileImages/" + System.currentTimeMillis() + ".jpg");
+        final StorageReference storageReference = firebaseStorage.getReference("profile_images/" + System.currentTimeMillis() + ".jpg");
         storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

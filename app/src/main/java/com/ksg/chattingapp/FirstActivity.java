@@ -32,6 +32,7 @@ import java.io.IOException;
 public class FirstActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final String DEFAULT_IMAGE_URL = "https://firebasestorage.googleapis.com/v0/b/chattingapp-3c6aa.appspot.com/o/profile_images%2Fdefault_profile_image.jpg?alt=media";
 
     Button btnEnter;
     ImageView profileImage;
@@ -79,7 +80,7 @@ public class FirstActivity extends AppCompatActivity {
         } else {
             // imageUrl이 null일 경우 기본 이미지 설정
             Glide.with(this)
-                    .load(R.drawable.default_profile_image)
+                    .load(DEFAULT_IMAGE_URL)
                     .into(profileImage);
         }
 
@@ -137,11 +138,7 @@ public class FirstActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     imageUrl = uri.toString();
-                                    Intent intent = new Intent(FirstActivity.this, ChatActivity.class);
-                                    intent.putExtra("imageUrl", imageUrl); // imageUrl 전달
-                                    intent.putExtra("nickname", nickname); // nickname 전달
-                                    startActivity(intent);
-                                    finish();
+                                    proceedToChatActivity(imageUrl);
                                 }
                             });
                         }
@@ -150,14 +147,20 @@ public class FirstActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(FirstActivity.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            proceedToChatActivity(DEFAULT_IMAGE_URL); // 업로드 실패 시 기본 이미지 사용
                         }
                     });
         } else {
-            Intent intent = new Intent(FirstActivity.this, ChatActivity.class);
-            intent.putExtra("nickname", nickname); // nickname 전달
-            startActivity(intent);
-            finish();
+            proceedToChatActivity(DEFAULT_IMAGE_URL); // 이미지가 없을 경우 기본 이미지 사용
         }
+    }
+
+    private void proceedToChatActivity(String imageUrl) {
+        Intent intent = new Intent(FirstActivity.this, ChatActivity.class);
+        intent.putExtra("imageUrl", imageUrl); // imageUrl 전달
+        intent.putExtra("nickname", nickname); // nickname 전달
+        startActivity(intent);
+        finish();
     }
 
     private void showLogoutDialog() {

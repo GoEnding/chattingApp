@@ -7,16 +7,17 @@ public class ChatMessage {
     private String message;
     private Timestamp timestamp;
     private String imageUrl;
+    private String profileImageUrl; // 프로필 이미지 URL 필드 추가
 
     public ChatMessage() {
-        // Default constructor required for calls to DataSnapshot.getValue(ChatMessage.class)
     }
 
-    public ChatMessage(String nickname, String message, Timestamp timestamp, String imageUrl) {
+    public ChatMessage(String nickname, String message, Timestamp timestamp, String imageUrl, String profileImageUrl) {
         this.nickname = nickname;
         this.message = message;
         this.timestamp = timestamp;
         this.imageUrl = imageUrl;
+        this.profileImageUrl = profileImageUrl; // 프로필 이미지 URL 초기화
     }
 
     public String getNickname() {
@@ -49,5 +50,13 @@ public class ChatMessage {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

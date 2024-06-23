@@ -48,6 +48,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseStorage storage;
     private String nickname;
+    private String profileImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,11 @@ public class ChatActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         nickname = getIntent().getStringExtra("nickname");
+        profileImageUrl = getIntent().getStringExtra("imageUrl");
 
         // 로그 추가
         Log.d("ChatActivity", "nickname: " + nickname);
+        Log.d("ChatActivity", "profileImageUrl: " + profileImageUrl);
 
         if (nickname == null) {
             Toast.makeText(this, "Missing nickname", Toast.LENGTH_SHORT).show();
@@ -139,14 +142,14 @@ public class ChatActivity extends AppCompatActivity {
     private void sendMessage() {
         String message = editChat.getText().toString();
         if (!TextUtils.isEmpty(message)) {
-            ChatMessage chatMessage = new ChatMessage(nickname, message, Timestamp.now(), null);
+            ChatMessage chatMessage = new ChatMessage(nickname, message, Timestamp.now(), null, profileImageUrl);
             db.collection("chats").add(chatMessage);
             editChat.setText("");
         }
     }
 
     private void sendMessageWithImage(String imageUrl) {
-        ChatMessage chatMessage = new ChatMessage(nickname, null, Timestamp.now(), imageUrl);
+        ChatMessage chatMessage = new ChatMessage(nickname, null, Timestamp.now(), imageUrl, profileImageUrl);
         db.collection("chats").add(chatMessage);
     }
 
