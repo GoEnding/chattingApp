@@ -13,11 +13,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtSenderName"
+            android:id="@+id/txtMyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="발신자 이름"
             android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txtMyMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="메시지 내용"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/imgMessage"
@@ -27,10 +36,11 @@
             android:adjustViewBounds="true"
             android:background="@drawable/chat"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             app:srcCompat="@drawable/common_google_signin_btn_icon_disabled" />
 
         <TextView
-            android:id="@+id/txtMessageTime"
+            android:id="@+id/txtMyTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

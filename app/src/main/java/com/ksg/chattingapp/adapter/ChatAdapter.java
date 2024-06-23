@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ChatMessage> chatMessages;
     private String currentUser;
@@ -25,48 +25,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
     public ChatAdapter(List<ChatMessage> chatMessages, String currentUser) {
         this.chatMessages = chatMessages;
         this.currentUser = currentUser;
-    }
-
-    @NonNull
-    @Override
-    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (viewType == 0) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_my, parent, false);
-        } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_chat_other, parent, false);
-        }
-        return new ChatViewHolder(view, viewType);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-        ChatMessage chatMessage = chatMessages.get(position);
-
-        holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtTime.setText(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(chatMessage.getTimestamp().toDate()));
-        holder.txtName.setText(chatMessage.getNickname());
-
-
-        if (chatMessage.getMessage() != null) {
-
-            holder.txtMessage.setText(chatMessage.getMessage());
-
-        } else if (chatMessage.getImageUrl() != null) {
-
-            Glide.with(holder.imgMessage.getContext()).load(chatMessage.getImageUrl()).into(holder.imgMessage);
-
-        } else {
-
-
-        }
-
-        // 이미지 관련 코드는 제거
-    }
-
-    @Override
-    public int getItemCount() {
-        return chatMessages.size();
     }
 
     @Override
@@ -78,26 +36,97 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
     }
 
-    public static class ChatViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMessage, txtTime, txtName;
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 0) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.myimagechat_row, parent, false);
+            return new MyChatViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.otherimagechat_row, parent, false);
+            return new OtherChatViewHolder(view);
+        }
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ChatMessage chatMessage = chatMessages.get(position);
+        if (holder instanceof MyChatViewHolder) {
+            ((MyChatViewHolder) holder).bind(chatMessage);
+        } else {
+            ((OtherChatViewHolder) holder).bind(chatMessage);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return chatMessages.size();
+    }
+
+    static class MyChatViewHolder extends RecyclerView.ViewHolder {
+        TextView txtMessage, txtTime, txtName;
         ImageView imgMessage;
 
-
-
-        public ChatViewHolder(@NonNull View itemView, int viewType) {
+        public MyChatViewHolder(@NonNull View itemView) {
             super(itemView);
-            if (viewType == 0) {
-                txtMessage = itemView.findViewById(R.id.txtMyMessage);
-                txtTime = itemView.findViewById(R.id.txtMyTime);
-                txtName = itemView.findViewById(R.id.txtMyName);
-                imgMessage = itemView.findViewById(R.id.imgMessage);
+            txtMessage = itemView.findViewById(R.id.txtMyMessage);
+            txtTime = itemView.findViewById(R.id.txtMyTime);
+            txtName = itemView.findViewById(R.id.txtMyName);
+            imgMessage = itemView.findViewById(R.id.imgMessage);
+        }
 
+        public void bind(ChatMessage chatMessage) {
+            txtName.setText(chatMessage.getNickname());
+            txtTime.setText(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(chatMessage.getTimestamp().toDate()));
+
+            if (chatMessage.getMessage() != null) {
+                txtMessage.setVisibility(View.VISIBLE);
+                txtMessage.setText(chatMessage.getMessage());
+                imgMessage.setVisibility(View.GONE);
+            } else if (chatMessage.getImageUrl() != null) {
+                imgMessage.setVisibility(View.VISIBLE);
+                Glide.with(imgMessage.getContext())
+                        .load(chatMessage.getImageUrl())
+                        .placeholder(R.drawable.default_profile_image)
+                        .into(imgMessage);
+                txtMessage.setVisibility(View.GONE);
             } else {
-                txtMessage = itemView.findViewById(R.id.txtOtherMessage);
-                txtTime = itemView.findViewById(R.id.txtOtherTime);
-                txtName = itemView.findViewById(R.id.txtOtherName);
-                imgMessage = itemView.findViewById(R.id.imgMessage);
+                txtMessage.setVisibility(View.GONE);
+                imgMessage.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    static class OtherChatViewHolder extends RecyclerView.ViewHolder {
+        TextView txtMessage, txtTime, txtName;
+        ImageView imgMessage;
+
+        public OtherChatViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtMessage = itemView.findViewById(R.id.txtOtherMessage);
+            txtTime = itemView.findViewById(R.id.txtOtherTime);
+            txtName = itemView.findViewById(R.id.txtOtherName);
+            imgMessage = itemView.findViewById(R.id.imgMessageOther);
+        }
+
+        public void bind(ChatMessage chatMessage) {
+            txtName.setText(chatMessage.getNickname());
+            txtTime.setText(new SimpleDateFormat("HH:mm", Locale.getDefault()).format(chatMessage.getTimestamp().toDate()));
+
+            if (chatMessage.getMessage() != null) {
+                txtMessage.setVisibility(View.VISIBLE);
+                txtMessage.setText(chatMessage.getMessage());
+                imgMessage.setVisibility(View.GONE);
+            } else if (chatMessage.getImageUrl() != null) {
+                imgMessage.setVisibility(View.VISIBLE);
+                Glide.with(imgMessage.getContext())
+                        .load(chatMessage.getImageUrl())
+                        .placeholder(R.drawable.default_profile_image)
+                        .into(imgMessage);
+                txtMessage.setVisibility(View.GONE);
+            } else {
+                txtMessage.setVisibility(View.GONE);
+                imgMessage.setVisibility(View.GONE);
             }
         }
     }

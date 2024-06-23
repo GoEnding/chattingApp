@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/imgSendImage"
             android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_height="43dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             app:srcCompat="@drawable/add_24dp_fill0_wght400_grad0_opsz24" />
