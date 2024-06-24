@@ -1,10 +1,14 @@
 package com.ksg.chattingapp;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +56,14 @@ public class ChatActivity extends AppCompatActivity {
     private String profileImageUrl;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.first, menu);
+        return true;
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
@@ -64,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         nickname = getIntent().getStringExtra("nickname");
         profileImageUrl = getIntent().getStringExtra("imageUrl");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // 로그 추가
         Log.d("ChatActivity", "nickname: " + nickname);
@@ -112,6 +126,15 @@ public class ChatActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             uploadImage(imageUri);
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(ChatActivity.this, FirstActivity.class);
+        intent.putExtra("nickname", nickname);
+        intent.putExtra("imageUrl", profileImageUrl);
+        startActivity(intent);
+        finish();
+        return true;
     }
 
     private void uploadImage(Uri imageUri) {
@@ -174,5 +197,34 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("로그아웃");
+        builder.setMessage("로그아웃 하시겠습니까?");
+        builder.setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(ChatActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ChatActivity.this, MainActivity.class)); // 로그인 화면으로 이동
+                finish();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 사용자가 취소 버튼을 클릭한 경우 처리 (아무것도 하지 않음)
+            }
+        });
+        builder.show(); // AlertDialog 표시
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menuLogout) {
+            showLogoutDialog();
+            return true; // 이벤트 처리 완료
+        }
+        return super.onOptionsItemSelected(item); // 기본 처리 (이 경우는 없겠지만 안전하게 기본 핸들링)
     }
 }

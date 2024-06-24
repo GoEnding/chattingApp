@@ -102,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     }
+    // 클릭했을 경우
 
     @Override
     public void onClick(View view) {

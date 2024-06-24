@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChattingApp</string>
+    <string name="app_name">ChattingRoom</string>
 
     <string name="txt_register"><u>회원가입</u></string>
 
